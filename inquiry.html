@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inquiry | The Soul of Benguet</title>
+  <link rel="icon" type="image/x-icon" href="images/1berry-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-inner"><div class="loader-ring"></div><span>BENGUET</span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/1benguet-logoo.png" alt="Benguet" style="max-height: 30px; margin-right: 10px;">
+      <span style="font-family:var(--font-serif);font-size:1.1rem;letter-spacing:2px;font-weight:700;color:var(--cream);">BENGUET</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="festivals.html">Festivals</a>
+      <a href="food.html">Food</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="inquiry.html" class="active">Inquiry</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="festivals.html">Festivals</a>
+    <a href="food.html">Food</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="travel-tips.html">Travel Tips</a>
+    <a href="inquiry.html" class="active">Inquiry</a>
+  </div>
+</nav>
+
+<div class="hero-inner">
+  <span class="eyebrow">Plan Your Visit</span>
+  <h1>Travel Inquiry</h1>
+  <p>Plan your journey to the highlands. We are here to help.</p>
+</div>
+
+<!-- CONTACT INFO CARDS -->
+<section class="section">
+  <div class="container">
+    <div class="grid-3" style="margin-bottom:48px;">
+      <div class="info-card" data-aos>
+        <span class="icon">📍</span>
+        <h5>Office Address</h5>
+        <p>Provincial Capitol, La Trinidad,<br>Benguet, Philippines</p>
+      </div>
+      <div class="info-card" data-aos data-aos-delay="100">
+        <span class="icon">📞</span>
+        <h5>Phone Number</h5>
+        <p>+63 74 123 4567<br>Mon–Fri (8AM – 5PM)</p>
+      </div>
+      <div class="info-card" data-aos data-aos-delay="200">
+        <span class="icon">✉️</span>
+        <h5>Email Us</h5>
+        <p>tourism@benguet.gov.ph<br>info@soul-of-benguet.com</p>
+      </div>
+    </div>
+
+    <!-- INQUIRY FORM -->
+    <div class="white-card" style="max-width:760px;margin:0 auto;" data-aos>
+      <h2 class="section-title" style="text-align:center;margin-bottom:8px;">Send an Inquiry</h2>
+      <p style="text-align:center;opacity:0.55;margin-bottom:36px;font-size:0.9rem;">Fill out the form and our team will reach out within 24–48 hours.</p>
+
+      <form id="inquiryForm" class="inquiry-form" novalidate>
+        <div class="form-row">
+          <div>
+            <input type="text" class="form-input" id="name" placeholder="Full Name" required>
+          </div>
+          <div>
+            <input type="email" class="form-input" id="email" placeholder="Email Address" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <input type="tel" class="form-input" id="phone" placeholder="Contact Number (digits only)" pattern="[0-9]+" required>
+          </div>
+          <div>
+            <select class="form-input" id="dest" required style="height:50px;">
+              <option value="">Select Destination</option>
+              <option value="Mount Pulag">Mount Pulag</option>
+              <option value="Strawberry Farm">Strawberry Farm</option>
+              <option value="Laperal White House">Laperal White House</option>
+              <option value="Ambuklao Dam">Ambuklao Dam</option>
+              <option value="Mt. Ulap">Mt. Ulap</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <input type="date" class="form-input" id="date" required>
+          </div>
+          <div>
+            <input type="number" class="form-input" id="visitors" placeholder="Number of Visitors" min="1" required>
+          </div>
+        </div>
+        <div class="form-full">
+          <textarea class="form-input" id="msg" rows="5" placeholder="Your message, special requests, or questions..." required style="resize:vertical;"></textarea>
+        </div>
+        <div style="text-align:center;margin-top:8px;">
+          <button type="submit" class="btn btn-primary" style="min-width:200px;padding:14px 40px;">Submit Inquiry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL TIPS -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;">
+      <h2 class="section-title" style="text-align:center;margin-bottom:32px;">Travel Tips</h2>
+      <div class="tip-card" data-aos>
+        <div class="tip-icon">🗓️</div>
+        <div><h5>Best Time to Visit</h5><p>Plan between <strong>November to February</strong> to enjoy cool highland weather and blooming flowers.</p></div>
+      </div>
+      <div class="tip-card" data-aos data-aos-delay="60">
+        <div class="tip-icon">🚌</div>
+        <div><h5>Getting There</h5><p>Take a <strong>Victory Liner or Joy Bus</strong> from Manila to Baguio — the main gateway to all Benguet municipalities.</p></div>
+      </div>
+      <div class="tip-card" data-aos data-aos-delay="120">
+        <div class="tip-icon">🛡️</div>
+        <div><h5>Safety & Hiking</h5><p>Always hire <strong>DOT-accredited local guides</strong> for treks like Mt. Pulag for your safety and environmental protection.</p></div>
+      </div>
+      <div class="tip-card" data-aos data-aos-delay="180">
+        <div class="tip-icon">🌿</div>
+        <div><h5>Responsible Tourism</h5><p>Practice <strong>Leave No Trace</strong> principles. Benguet is a sacred highland — respect local customs and bring your trash back.</p></div>
+      </div>
+      <div class="tip-card" data-aos data-aos-delay="240">
+        <div class="tip-icon">🧥</div>
+        <div><h5>What to Bring</h5><p>Pack warm clothing, a light rain jacket, and sunscreen. Weather can change rapidly in the mountains.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p class="footer-tagline">Explore the Soul of Benguet</p>
+  <p class="footer-copy">© 2026 | All Rights Reserved | To God be the Glory!</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  document.querySelectorAll('[data-aos]').forEach(el => {
+    const delay = parseInt(el.dataset.aosDelay||0);
+    const obs = new IntersectionObserver(en => { en.forEach(e => { if(e.isIntersecting) { setTimeout(()=>e.target.classList.add('aos-animate'),delay); obs.unobserve(e.target); }}); },{threshold:0.1});
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

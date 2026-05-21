@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Tips | The Soul of Benguet</title>
+  <link rel="icon" type="image/x-icon" href="images/1berry-logo.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- TRAVEL TIPS PAGE EXTRA STYLES ---- */
+
+    /* Large numbered tip cards */
+    .tip-numbered {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 6px 28px rgba(58,77,57,0.09);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 30px;
+      align-items: flex-start;
+      transition: var(--transition);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tip-numbered::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: var(--green);
+      border-radius: 0 4px 4px 0;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.35s ease;
+    }
+    .tip-numbered:hover::after { transform: scaleY(1); }
+    .tip-numbered:hover {
+      transform: translateX(10px);
+      box-shadow: 0 16px 48px rgba(58,77,57,0.15);
+    }
+    .tip-number-badge {
+      width: 72px; height: 72px;
+      background: var(--green);
+      color: var(--cream);
+      border-radius: 24px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(58,77,57,0.25);
+    }
+    .tip-content-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tip-content-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1.2;
+    }
+    .tip-emoji-tag {
+      background: var(--green-light);
+      border-radius: 50px;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .tip-numbered p {
+      font-size: 0.925rem;
+      opacity: 0.75;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .tip-bullets {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 8px;
+    }
+    .tip-pill {
+      background: var(--cream);
+      border: 1px solid rgba(58,77,57,0.12);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    /* Quick reference table */
+    .quick-ref {
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .quick-ref-header {
+      background: var(--green);
+      color: var(--cream);
+      padding: 24px 32px;
+    }
+    .quick-ref-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .quick-ref-header p { opacity: 0.65; font-size: 0.875rem; margin-top: 4px; }
+    .quick-ref-table { width: 100%; border-collapse: collapse; }
+    .quick-ref-table th {
+      background: var(--green-light);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .quick-ref-table td {
+      padding: 14px 20px;
+      font-size: 0.875rem;
+      border-bottom: 1px solid rgba(58,77,57,0.07);
+      vertical-align: top;
+    }
+    .quick-ref-table tr:last-child td { border-bottom: none; }
+    .quick-ref-table tr:hover td { background: rgba(58,77,57,0.03); }
+    .ref-label {
+      font-weight: 700;
+      color: var(--green);
+      white-space: nowrap;
+    }
+    .ref-val { opacity: 0.8; line-height: 1.6; }
+
+    /* Season cards */
+    .season-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .season-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 3px 14px rgba(58,77,57,0.07);
+      transition: var(--transition);
+    }
+    .season-card:hover { transform: translateY(-5px); }
+    .season-card.peak {
+      background: var(--green);
+      color: var(--cream);
+    }
+    .season-card.peak .season-meta { opacity: 0.65; }
+    .season-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+    .season-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .season-months { font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; opacity: 0.55; }
+    .season-meta { font-size: 0.8rem; opacity: 0.7; line-height: 1.6; }
+    .peak-badge {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--green);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 8px;
+    }
+
+    /* Emergency contacts */
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .emergency-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 3px 14px rgba(58,77,57,0.06);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: var(--transition);
+    }
+    .emergency-card:hover { transform: translateY(-4px); }
+    .emergency-icon {
+      width: 46px; height: 46px;
+      background: var(--green-light);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .emergency-card h5 { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+    .emergency-card p { font-size: 0.82rem; opacity: 0.65; line-height: 1.5; margin: 0; }
+    .emergency-number {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 4px;
+      display: block;
+    }
+
+    @media (max-width: 992px) {
+      .season-grid { grid-template-columns: 1fr 1fr; }
+      .emergency-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .tip-numbered { grid-template-columns: 1fr; gap: 16px; padding: 28px 24px; }
+      .tip-numbered:hover { transform: translateX(5px); }
+      .season-grid { grid-template-columns: 1fr 1fr; }
+      .emergency-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .season-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-inner"><div class="loader-ring"></div><span>BENGUET</span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/1benguet-logoo.png" alt="Benguet" style="max-height: 30px; margin-right: 10px;">
+      <span style="font-family:var(--font-serif);font-size:1.1rem;letter-spacing:2px;font-weight:700;color:var(--cream);">BENGUET</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="festivals.html">Festivals</a>
+      <a href="food.html">Food</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travel-tips.html" class="active">Travel Tips</a>
+      <a href="inquiry.html">Inquiry</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="festivals.html">Festivals</a>
+    <a href="food.html">Food</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="travel-tips.html" class="active">Travel Tips</a>
+    <a href="inquiry.html">Inquiry</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-inner">
+  <span class="eyebrow">Before You Go</span>
+  <h1>Travel Tips</h1>
+  <p>Everything you need to know for a safe, memorable, and responsible highland adventure.</p>
+</div>
+
+<!-- BEST TIME TO VISIT — SEASON CARDS -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:36px;">
+      <h2 class="section-title">Best Time to Visit</h2>
+      <p class="section-sub">Benguet's highland climate varies — plan ahead for the experience you want</p>
+    </div>
+    <div class="season-grid" data-aos>
+      <div class="season-card peak">
+        <span class="season-icon">❄️</span>
+        <div class="season-name">Cool Season</div>
+        <div class="season-months">Nov – Feb</div>
+        <p class="season-meta">Best weather — crisp air, clear skies, and sea-of-clouds at Mt. Pulag. Ideal for hiking and festivals.</p>
+        <span class="peak-badge">⭐ Peak Season</span>
+      </div>
+      <div class="season-card">
+        <span class="season-icon">🌸</span>
+        <div class="season-name">Flower Season</div>
+        <div class="season-months">Mar – May</div>
+        <p class="season-meta">Atok blooms with sunflowers and roses. Warm days but still pleasant. Strawberry harvest peaks in March.</p>
+      </div>
+      <div class="season-card">
+        <span class="season-icon">🌧️</span>
+        <div class="season-name">Rainy Season</div>
+        <div class="season-months">Jun – Sep</div>
+        <p class="season-meta">Heavy rains can affect mountain roads. Trails may be slippery. Check typhoon advisories before travel.</p>
+      </div>
+      <div class="season-card">
+        <span class="season-icon">🍂</span>
+        <div class="season-name">Harvest Season</div>
+        <div class="season-months">Oct – Nov</div>
+        <p class="season-meta">Vegetable and rice harvest time. Vibrant markets, cultural gatherings, and the grand Adivay Festival in November.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE 8 TRAVEL TIPS -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 class="section-title">Essential Travel Tips</h2>
+      <p class="section-sub">Read these before heading to the highlands</p>
+    </div>
+
+    <!-- TIP 1: TRANSPORTATION -->
+    <div class="tip-numbered" data-aos>
+      <div class="tip-number-badge">1</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">🚌</div>
+          <h3>Getting There &amp; Around</h3>
+        </div>
+        <p>Benguet is accessible from Manila via several bus lines. From La Trinidad (the provincial capital), jeepneys and tricycles connect to most municipalities. Roads can be narrow and winding — allow extra travel time, especially for remote areas.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Victory Liner (Manila → Baguio, ~6hrs)</span>
+          <span class="tip-pill">✓ Joy Bus Premium (overnight options)</span>
+          <span class="tip-pill">✓ Jeepneys within La Trinidad</span>
+          <span class="tip-pill">✓ Rent 4WD for mountain routes</span>
+          <span class="tip-pill">✓ Kennon Road, Marcos Hwy, or Naguilian Road entry</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 2: PACKING -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">2</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">🧥</div>
+          <h3>What to Pack</h3>
+        </div>
+        <p>Benguet's highlands can drop to 5°C or below at peak season, especially at Mt. Pulag's summit. Layering is essential. Weather can shift dramatically in a single afternoon — always be prepared for both sun and rain.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Thermal or fleece jacket</span>
+          <span class="tip-pill">✓ Light rain jacket or poncho</span>
+          <span class="tip-pill">✓ Waterproof hiking boots</span>
+          <span class="tip-pill">✓ Sunscreen (high altitude = stronger UV)</span>
+          <span class="tip-pill">✓ Reusable water bottle</span>
+          <span class="tip-pill">✓ Headlamp for early treks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 3: SAFETY -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">3</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">🛡️</div>
+          <h3>Safety &amp; Hiking Reminders</h3>
+        </div>
+        <p>The mountains of Benguet are beautiful but demand respect. Always inform someone of your itinerary and expected return time. For major trails like Mt. Pulag, advance booking and DOT-registered guides are mandatory — not optional.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Hire DOT-accredited local guides</span>
+          <span class="tip-pill">✓ Register at the DENR trailhead office</span>
+          <span class="tip-pill">✓ Never hike solo on remote trails</span>
+          <span class="tip-pill">✓ Carry first aid essentials</span>
+          <span class="tip-pill">✓ Check weather forecasts 24–48 hrs ahead</span>
+          <span class="tip-pill">✓ Bring emergency whistle and signal mirror</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 4: PERMITS & BOOKING -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">4</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">📋</div>
+          <h3>Permits &amp; Advance Booking</h3>
+        </div>
+        <p>Several destinations in Benguet require permits obtained days or weeks in advance. Mt. Pulag, in particular, limits the number of visitors per day to protect its fragile ecosystem. Walk-ins are rarely accommodated for major peaks.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Mt. Pulag: DENR-CAR permit required</span>
+          <span class="tip-pill">✓ Book at least 2–4 weeks ahead for peak season</span>
+          <span class="tip-pill">✓ Mt. Ulap: register at Ampucao Barangay Hall</span>
+          <span class="tip-pill">✓ Kabayan Mummy Caves: local tourism office permit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 5: RESPONSIBLE TOURISM -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">5</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">🌿</div>
+          <h3>Responsible &amp; Eco-Tourism</h3>
+        </div>
+        <p>Benguet's highlands are among the most biodiverse and culturally sacred landscapes in the Philippines. Every visitor has the responsibility to preserve what makes Benguet extraordinary for generations to come.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Pack out all your trash (no trash bins on trails)</span>
+          <span class="tip-pill">✓ Do not pick wildflowers or uproot plants</span>
+          <span class="tip-pill">✓ Stay on designated trails</span>
+          <span class="tip-pill">✓ No camping fires outside designated zones</span>
+          <span class="tip-pill">✓ Use biodegradable toiletries</span>
+          <span class="tip-pill">✓ Buy local — support indigenous artisans</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 6: CULTURAL RESPECT -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">6</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">🙏</div>
+          <h3>Respecting Local Culture</h3>
+        </div>
+        <p>Benguet is home to the Ibaloi, Kankanaey, and Kalanguya indigenous peoples. Their customs, sacred sites, and rituals deserve deep respect. Ask before photographing locals, especially during ceremonies. Learn a few Ibaloi or Kankanaey greetings — the locals will love it.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Ask permission before taking photos</span>
+          <span class="tip-pill">✓ Dress modestly in sacred or ritual spaces</span>
+          <span class="tip-pill">✓ Do not enter burial grounds uninvited</span>
+          <span class="tip-pill">✓ Respect "cañao" ceremonies — they are private rituals</span>
+          <span class="tip-pill">✓ Learn: "Oka" = Thank You (Ibaloi)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 7: CONNECTIVITY & MONEY -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">7</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">📱</div>
+          <h3>Connectivity &amp; Money Matters</h3>
+        </div>
+        <p>Signal can be weak to non-existent in remote municipalities. Download offline maps before you go. Most local markets and eateries are cash-only — withdraw before leaving La Trinidad or Baguio City, as ATMs are scarce in the highlands.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Download Google Maps offline (Benguet region)</span>
+          <span class="tip-pill">✓ Bring enough cash — no ATMs past La Trinidad</span>
+          <span class="tip-pill">✓ Globe tends to have better coverage in upland areas</span>
+          <span class="tip-pill">✓ Power banks are essential on multi-day treks</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIP 8: HEALTH & ALTITUDE -->
+    <div class="tip-numbered" data-aos data-aos-delay="60">
+      <div class="tip-number-badge">8</div>
+      <div>
+        <div class="tip-content-header">
+          <div class="tip-emoji-tag">💊</div>
+          <h3>Health &amp; Altitude Awareness</h3>
+        </div>
+        <p>Mt. Pulag's summit sits at 2,922m above sea level. Altitude sickness (headache, nausea, dizziness) is real. Acclimatize gradually and descend immediately if symptoms worsen. Drink plenty of water and avoid alcohol before high-altitude climbs.</p>
+        <div class="tip-bullets">
+          <span class="tip-pill">✓ Acclimatize in La Trinidad (785m) first</span>
+          <span class="tip-pill">✓ Stay hydrated — drink 3L/day while trekking</span>
+          <span class="tip-pill">✓ Carry paracetamol and oral rehydration salts</span>
+          <span class="tip-pill">✓ No alcohol 24hrs before summit attempt</span>
+          <span class="tip-pill">✓ Consult a doctor if you have heart or lung conditions</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUICK REFERENCE -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="quick-ref" data-aos>
+      <div class="quick-ref-header">
+        <h3>📋 Quick Reference Guide</h3>
+        <p>At-a-glance facts for your highland trip</p>
+      </div>
+      <table class="quick-ref-table">
+        <thead>
+          <tr>
+            <th style="width:200px;">Category</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ref-label">🏙️ Capital / Hub</td>
+            <td class="ref-val">La Trinidad, Benguet — main transport and accommodation hub</td>
+          </tr>
+          <tr>
+            <td class="ref-label">🌡️ Temperature</td>
+            <td class="ref-val">5°C – 18°C (peak season); 12°C – 25°C (summer); near 0°C at Mt. Pulag summit</td>
+          </tr>
+          <tr>
+            <td class="ref-label">🚌 Bus Lines</td>
+            <td class="ref-val">Victory Liner, Dagupan Bus, Genesis Transport, Joy Bus — all route through Baguio City</td>
+          </tr>
+          <tr>
+            <td class="ref-label">🏦 ATMs</td>
+            <td class="ref-val">BDO, BPI, Metrobank, Landbank available in La Trinidad. Withdraw before heading to remote municipalities.</td>
+          </tr>
+          <tr>
+            <td class="ref-label">📶 Signal</td>
+            <td class="ref-val">Globe & Smart in La Trinidad. Signal drops in Kabayan, Bakun, Kibungan, and Mankayan uplands.</td>
+          </tr>
+          <tr>
+            <td class="ref-label">🏥 Nearest Hospital</td>
+            <td class="ref-val">Benguet General Hospital — La Trinidad | Baguio General Hospital — Baguio City (larger facility)</td>
+          </tr>
+          <tr>
+            <td class="ref-label">🗣️ Languages</td>
+            <td class="ref-val">Filipino, English, Ibaloi, Kankanaey — most tourism staff speak English</td>
+          </tr>
+          <tr>
+            <td class="ref-label">💱 Currency</td>
+            <td class="ref-val">Philippine Peso (PHP). Budget ₱1,500–₱3,000/day for a mid-range highland trip (excluding transport).</td>
+          </tr>
+          <tr>
+            <td class="ref-label">📅 Festivals</td>
+            <td class="ref-val">Adivay Festival (Nov), Lang-ay Festival (Apr), Panagbenga Flower Festival (Feb, Baguio)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY CONTACTS -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:32px;">
+      <h2 class="section-title">Emergency Contacts</h2>
+      <p class="section-sub">Save these before your trip</p>
+    </div>
+    <div class="emergency-grid">
+      <div class="emergency-card" data-aos>
+        <div class="emergency-icon">🚔</div>
+        <div>
+          <h5>PNP Benguet</h5>
+          <p>La Trinidad Police Station</p>
+          <span class="emergency-number">+63 74 422 2222</span>
+        </div>
+      </div>
+      <div class="emergency-card" data-aos data-aos-delay="60">
+        <div class="emergency-icon">🚑</div>
+        <div>
+          <h5>Benguet General Hospital</h5>
+          <p>La Trinidad, Benguet</p>
+          <span class="emergency-number">+63 74 422 4800</span>
+        </div>
+      </div>
+      <div class="emergency-card" data-aos data-aos-delay="120">
+        <div class="emergency-icon">🏔️</div>
+        <div>
+          <h5>DENR-CAR (Mt. Pulag)</h5>
+          <p>Permits &amp; Trail Management</p>
+          <span class="emergency-number">+63 74 442 8106</span>
+        </div>
+      </div>
+      <div class="emergency-card" data-aos data-aos-delay="180">
+        <div class="emergency-icon">🔥</div>
+        <div>
+          <h5>BFP La Trinidad</h5>
+          <p>Bureau of Fire Protection</p>
+          <span class="emergency-number">+63 74 422 1450</span>
+        </div>
+      </div>
+      <div class="emergency-card" data-aos data-aos-delay="240">
+        <div class="emergency-icon">🏛️</div>
+        <div>
+          <h5>Benguet Tourism Office</h5>
+          <p>Provincial Capitol, La Trinidad</p>
+          <span class="emergency-number">+63 74 123 4567</span>
+        </div>
+      </div>
+      <div class="emergency-card" data-aos data-aos-delay="300">
+        <div class="emergency-icon">☎️</div>
+        <div>
+          <h5>National Emergency Hotline</h5>
+          <p>Available 24 hours</p>
+          <span class="emergency-number">911</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="white-card" style="text-align:center;" data-aos>
+      <h2 class="section-title" style="margin-bottom:12px;">Ready for the Highlands?</h2>
+      <p style="opacity:0.7;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">Have more questions about your trip? Send us an inquiry — our tourism team is happy to help you plan the perfect Benguet adventure.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="inquiry.html" class="btn btn-primary">Send an Inquiry</a>
+        <a href="destinations.html" class="btn btn-outline">View Destinations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p class="footer-tagline">Explore the Soul of Benguet</p>
+  <p class="footer-copy">© 2026 | All Rights Reserved | To God be the Glory!</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  document.querySelectorAll('[data-aos]').forEach(el => {
+    const delay = parseInt(el.dataset.aosDelay||0);
+    const obs = new IntersectionObserver(en => {
+      en.forEach(e => {
+        if(e.isIntersecting) {
+          setTimeout(()=>e.target.classList.add('aos-animate'), delay);
+          obs.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.06});
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

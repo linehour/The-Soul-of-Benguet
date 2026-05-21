@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food | The Soul of Benguet</title>
+  <link rel="icon" type="image/x-icon" href="images/1berry-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ---- FOOD PAGE EXTRA STYLES ---- */
+    .food-hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(241,237,227,0.15);
+      border: 1px solid rgba(241,237,227,0.25);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    /* ---- FEATURED FOOD CARD (large) ---- */
+    .food-feature {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+      transition: var(--transition);
+      margin-bottom: 32px;
+    }
+    .food-feature:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(58,77,57,0.18); }
+    .food-feature.reverse { direction: rtl; }
+    .food-feature.reverse > * { direction: ltr; }
+    .food-feature-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .food-feature-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .food-feature:hover .food-feature-img img { transform: scale(1.05); }
+    .food-feature-img-placeholder {
+      width: 100%; height: 100%; min-height: 300px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+    .food-feature-body {
+      padding: 44px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .food-tag {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .food-feature-body h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .food-feature-body p {
+      font-size: 0.95rem;
+      opacity: 0.75;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .where-to-try {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--cream);
+      border-radius: 18px;
+      padding: 16px 20px;
+    }
+    .where-to-try-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .where-to-try-text h6 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 4px;
+    }
+    .where-to-try-text p {
+      font-size: 0.875rem;
+      font-weight: 600;
+      opacity: 1;
+      margin: 0;
+      line-height: 1.5;
+      color: var(--green);
+    }
+
+    /* ---- SMALL FOOD CARDS ---- */
+    .food-small-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .food-small-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(58,77,57,0.08);
+      transition: var(--transition);
+    }
+    .food-small-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(58,77,57,0.15);
+    }
+    .food-small-card-img {
+      height: 190px;
+      overflow: hidden;
+      position: relative;
+    }
+    .food-small-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .food-small-card:hover .food-small-card-img img { transform: scale(1.08); }
+    .food-small-card-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+    }
+    .food-small-card-body { padding: 20px; }
+    .food-small-card-body h5 {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--green);
+    }
+    .food-small-card-body p {
+      font-size: 0.82rem;
+      opacity: 0.65;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+    .try-badge {
+      display: flex; align-items: center; gap: 7px;
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+    .try-badge span { font-size: 1rem; }
+
+    /* ---- QUOTE BANNER ---- */
+    .food-quote-banner {
+      background: var(--green);
+      color: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 50px 60px;
+      text-align: center;
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .food-quote-banner::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 30px;
+      font-family: var(--font-serif);
+      font-size: 14rem;
+      opacity: 0.05;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .food-quote-banner blockquote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .food-quote-banner cite {
+      font-size: 0.82rem;
+      opacity: 0.55;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-style: normal;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 992px) {
+      .food-small-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .food-feature { grid-template-columns: 1fr; }
+      .food-feature.reverse { direction: ltr; }
+      .food-feature-body { padding: 28px 24px; }
+      .food-small-grid { grid-template-columns: 1fr 1fr; }
+      .food-quote-banner { padding: 36px 28px; }
+    }
+    @media (max-width: 480px) {
+      .food-small-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-inner"><div class="loader-ring"></div><span>BENGUET</span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/1benguet-logoo.png" alt="Benguet" style="max-height: 30px; margin-right: 10px;">
+      <span style="font-family:var(--font-serif);font-size:1.1rem;letter-spacing:2px;font-weight:700;color:var(--cream);">BENGUET</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="festivals.html">Festivals</a>
+      <a href="food.html" class="active">Food</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="inquiry.html">Inquiry</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="festivals.html">Festivals</a>
+    <a href="food.html" class="active">Food</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="travel-tips.html">Travel Tips</a>
+    <a href="inquiry.html">Inquiry</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-inner">
+  <span class="eyebrow">Taste the Highlands</span>
+  <h1>Food &amp; Delicacies</h1>
+  <p>From pine-smoked meats to fresh strawberry jams — the flavors of Benguet are as rich as its mountains.</p>
+</div>
+
+<!-- FEATURED DISHES (large cards) -->
+<section class="section">
+  <div class="container">
+
+    <div style="text-align:center;margin-bottom:44px;">
+      <h2 class="section-title">Signature Benguet Dishes</h2>
+      <p class="section-sub">Indigenous flavors crafted from the highlands' bounty</p>
+    </div>
+
+    <!-- KINIING -->
+    <div class="food-feature" data-aos>
+      <div class="food-feature-img">
+        <img src="images/kiniing.webp" alt="Kiniing"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="food-feature-img-placeholder" style="background:#d4c9a8;display:none;"></div>
+      </div>
+      <div class="food-feature-body">
+        <span class="food-tag">Indigenous Delicacy</span>
+        <h3>Kiniing</h3>
+        <p>Benguet's pride — native pork or carabao meat cured with salt and smoked over pine wood for days. The result is a deeply flavorful, smoky meat with a firm texture unique to the Cordillera highlands. Often served with rice or as a pulutan, kiniing carries the soul of Ibaloi cooking in every bite.</p>
+        <div class="where-to-try">
+          <div class="where-to-try-icon">📍</div>
+          <div class="where-to-try-text">
+            <h6>Where to Try</h6>
+            <p>Public markets in Bokod & La Trinidad; local eateries along Km. 52, Kennon Road</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PINIKPIKAN -->
+    <div class="food-feature reverse" data-aos data-aos-delay="80">
+      <div class="food-feature-img">
+        <img src="images/pinik.jpg" alt="Pinikpikan"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="food-feature-img-placeholder" style="background:#c8b89a;display:none;">🍲</div>
+      </div>
+      <div class="food-feature-body">
+        <span class="food-tag">Traditional Ritual Food</span>
+        <h3>Pinikpikan</h3>
+        <p>A sacred Cordilleran dish prepared through a traditional ritual — chicken is slow-cooked in a broth with etag (salted cured pork) and local vegetables. The smoky depth of the broth, enriched by etag, creates a complex flavor unlike any other highland stew. Pinikpikan is more than a meal; it is a cultural ceremony passed down through generations.</p>
+        <div class="where-to-try">
+          <div class="where-to-try-icon">📍</div>
+          <div class="where-to-try-text">
+            <h6>Where to Try</h6>
+            <p>Traditional Ibaloi households; select Cordilleran restaurants in La Trinidad and Baguio City</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUOTE BANNER -->
+<section class="section" style="padding-top:0;padding-bottom:60px;">
+  <div class="container">
+    <div class="food-quote-banner" data-aos>
+      <blockquote>"Every meal in Benguet tastes like it was cooked by the mountain itself."</blockquote>
+      <cite>— A Traveler's Note from the Highlands</cite>
+    </div>
+  </div>
+</section>
+
+<!-- MORE DELICACIES (small cards grid) -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 class="section-title">More Local Delicacies</h2>
+      <p class="section-sub">Sweeter, fresher, and straight from the farm</p>
+    </div>
+
+    <div class="food-small-grid">
+
+      <!-- Strawberry Jam -->
+      <div class="food-small-card" data-aos>
+        <div class="food-small-card-img">
+          <img src="images/straw.jpg"Strawberry Jam"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#f0d4d4;display:none;">🍓</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Agri Product</span>
+          <h5>Strawberry Products</h5>
+          <p>La Trinidad's famous strawberries processed into jams, pastries, wine, and fresh pies. Sweet, vibrant, and bursting with highland freshness — the perfect pasalubong.</p>
+          <div class="try-badge"><span>📍</span> Strawberry Farm stalls, La Trinidad Public Market</div>
+        </div>
+      </div>
+
+      <!-- Ube Halaya -->
+      <div class="food-small-card" data-aos data-aos-delay="80">
+        <div class="food-small-card-img">
+          <img src="images/ube.jpg" alt="Ube Halaya"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#d8c8e8;display:none;">🟣</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Pasalubong Classic</span>
+          <h5>Ube Halaya</h5>
+          <p>Thick, creamy purple yam jam slow-cooked to perfection. Tuba's version is particularly famous — smooth, rich, and made from locally grown ube with a deep violet hue.</p>
+          <div class="try-badge"><span>📍</span> Souvenir shops in Tuba, along Kennon Road</div>
+        </div>
+      </div>
+
+      <!-- Walis Herb Tea -->
+      <div class="food-small-card" data-aos data-aos-delay="160">
+        <div class="food-small-card-img">
+          <img src="images/herbal.jpg" alt="Highland Herbal Tea"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#c8dcc0;display:none;">🍵</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Herbal Wellness</span>
+          <h5>Benguet Herbal Tea</h5>
+          <p>Brewed from indigenous highland plants like walis, lagundi, and oregano grown at high altitude. Warming, aromatic, and soothing — a highland staple to ward off the cold mountain air.</p>
+          <div class="try-badge"><span>📍</span> Local farms in Atok; Buguias vegetable market</div>
+        </div>
+      </div>
+
+      <!-- Peanut Brittle -->
+      <div class="food-small-card" data-aos data-aos-delay="240">
+        <div class="food-small-card-img">
+          <img src="images/peanut.jpg" alt="Peanut Brittle"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#e8d8a0;display:none;">🥜</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Sweet Treat</span>
+          <h5>Peanut Brittle &amp; Polvoron</h5>
+          <p>Crunchy golden peanut brittle and crumbly polvoron are beloved Benguet snacks, often wrapped in colorful cellophane and sold by the bag as the most popular souvenir in the highlands.</p>
+          <div class="try-badge"><span>📍</span> La Trinidad night market; pasalubong centers near the capital</div>
+        </div>
+      </div>
+
+      <!-- Heirloom Red Rice -->
+      <div class="food-small-card" data-aos>
+        <div class="food-small-card-img">
+          <img src="images/rice.webp" alt="Heirloom Red Rice"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#e0bca0;display:none;">🌾</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Heritage Grain</span>
+          <h5>Heirloom Red Rice</h5>
+          <p>Cultivated by the Kankanaey people of Kibungan for centuries, this nutty, slightly chewy red rice is organic, unpolished, and packed with natural nutrients — a staple of Benguet highland cuisine.</p>
+          <div class="try-badge"><span>📍</span> Kibungan organic farms; weekend markets in La Trinidad</div>
+        </div>
+      </div>
+
+      <!-- Tapuey -->
+      <div class="food-small-card" data-aos data-aos-delay="80">
+        <div class="food-small-card-img">
+          <img src="images/wine.jpg" alt="Tapuey"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#f0e4c4;display:none;">🍶</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Traditional Brew</span>
+          <h5>Tapuey (Rice Wine)</h5>
+          <p>A milky, mildly sweet rice wine fermented by the Ibaloi and Kankanaey peoples. Traditionally served at rituals and festivals, tapuey is smooth, slightly alcoholic, and deeply tied to Benguet's living cultural heritage.</p>
+          <div class="try-badge"><span>📍</span> Cultural villages in Kabayan; Adivay Festival booths, La Trinidad</div>
+        </div>
+      </div>
+
+      <!-- Chayote Pickles -->
+      <div class="food-small-card" data-aos data-aos-delay="160">
+        <div class="food-small-card-img">
+          <img src="images/pick.webp" alt="Chayote"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#d4e4c0;display:none;">🥦</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Farm to Table</span>
+          <h5>Highland Pickled Vegetables</h5>
+          <p>Chayote, sayote tops, pechay, and carrots from Buguias' sprawling farms are transformed into crisp, tangy pickles and fresh salads. A celebration of the "Salad Bowl of the Philippines" at its finest.</p>
+          <div class="try-badge"><span>📍</span> Buguias roadside stalls; La Trinidad wet market</div>
+        </div>
+      </div>
+
+      <!-- Arabica Coffee -->
+      <div class="food-small-card" data-aos data-aos-delay="240">
+        <div class="food-small-card-img">
+          <img src="images/cof.jpg" alt="Benguet Arabica Coffee"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="food-small-card-img-placeholder" style="background:#c8a880;display:none;">☕</div>
+        </div>
+        <div class="food-small-card-body">
+          <span class="food-tag" style="margin-bottom:10px;font-size:0.68rem;">Highlands Brew</span>
+          <h5>Benguet Arabica Coffee</h5>
+          <p>Grown at elevation in Atok and Kibungan, Benguet Arabica is internationally recognized for its bright acidity, floral notes, and clean finish. One of the Philippines' finest specialty coffees.</p>
+          <div class="try-badge"><span>📍</span> Coffee farms in Atok; specialty cafés in La Trinidad</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="white-card" style="text-align:center;" data-aos>
+      <h2 class="section-title" style="margin-bottom:12px;">Hungry for the Highlands?</h2>
+      <p style="opacity:0.7;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;">Plan your food journey through Benguet's markets, farms, and local eateries. We'll help you discover the best bites.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="inquiry.html" class="btn btn-primary">Plan My Trip</a>
+        <a href="destinations.html" class="btn btn-outline">Explore Destinations</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p class="footer-tagline">Explore the Soul of Benguet</p>
+  <p class="footer-copy">© 2026 | All Rights Reserved | To God be the Glory!</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  document.querySelectorAll('[data-aos]').forEach(el => {
+    const delay = parseInt(el.dataset.aosDelay||0);
+    const obs = new IntersectionObserver(en => {
+      en.forEach(e => {
+        if(e.isIntersecting) {
+          setTimeout(()=>e.target.classList.add('aos-animate'), delay);
+          obs.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.08});
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

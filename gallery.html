@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery | The Soul of Benguet</title>
+  <link rel="icon" type="image/x-icon" href="images/1berry-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-inner"><div class="loader-ring"></div><span>BENGUET</span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/1benguet-logoo.png" alt="Benguet" style="max-height: 30px; margin-right: 10px;">
+      <span style="font-family:var(--font-serif);font-size:1.1rem;letter-spacing:2px;font-weight:700;color:var(--cream);">BENGUET</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="festivals.html">Festivals</a>
+      <a href="food.html">Food</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="inquiry.html">Inquiry</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="festivals.html">Festivals</a>
+    <a href="food.html">Food</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="travel-tips.html">Travel Tips</a>
+    <a href="inquiry.html">Inquiry</a>
+  </div>
+</nav>
+
+<div class="hero-inner">
+  <span class="eyebrow">Visual Showcase</span>
+  <h1>Province Gallery</h1>
+  <p>A visual journey through the Salad Bowl of the Philippines.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="gallery-grid" id="galleryContainer"></div>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <p class="footer-tagline">Explore the Soul of Benguet</p>
+  <p class="footer-copy">© 2026 | All Rights Reserved | To God be the Glory!</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;" onclick="closeLightbox()">
+  <img id="lightboxImg" style="max-width:90vw;max-height:90vh;border-radius:16px;object-fit:contain;">
+</div>
+
+<script src="main.js"></script>
+<script>
+  const container = document.getElementById('galleryContainer');
+  const fallbacks = ['Photo/1hero.png','Photo/pulag.png','Photo/strawberry.png','Photo/history.png','Photo/1geo.png','Photo/welcome.png'];
+
+  const myImages = [
+  'images/Ad.jpg',
+  'images/Ad1.avif',
+  'images/Ad2.avif',
+  'images/Ambuklao Dam.webp',
+  'images/Mount_Pulag.jpg',
+  'images/Starberry_Farm.jpg',
+  'images/Atok.jpg',
+  'images/Atok2.jpg',
+  'images/Bakun1.jpg',
+  'images/Bakun2.webp',
+  'images/Bug.jpg',
+  'images/image1.jpg',
+  'images/image3.webp',
+  'images/image9.jpeg',
+  'images/image10.jpg',
+  'images/Itogon.jpg',
+  'images/kab.jpg',
+  'images/kab2.jpg',
+  'images/la.jpg',
+  'images/la1.jpg',
+  'images/Laperal White House.jpg',
+  'images/Mines View Park.jpg',
+  'images/Mt. Ulap.jpg',
+  'images/Bum.jpg',
+  'images/image11.jpg',
+  'images/image12.jpg',
+  'images/image13.jpg',
+  'images/image14.jpg',
+  'images/image15.jpg',
+  'images/image16.jpg',
+  // add as many as you want
+];
+
+  let html = '';
+  myImages.forEach((src, i) => {
+    html += `
+      <div class="gallery-item" style="cursor:pointer;" onclick="openLightbox('${src}','${src}')" data-aos data-aos-delay="${(i % 6) * 80}">
+        <img src="${src}" alt="Gallery ${i + 1}" loading="lazy" onerror="this.style.background='var(--green)';this.style.height='200px';this.removeAttribute('src');">
+      </div>`;
+  });
+  container.innerHTML = html;
+
+  document.querySelectorAll('[data-aos]').forEach(el => {
+    const delay = parseInt(el.dataset.aosDelay || 0);
+    const obs = new IntersectionObserver(en => {
+      en.forEach(e => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('aos-animate'), delay);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    obs.observe(el);
+  });
+
+  // Fix lightbox — remove the inline display:none from the div, control via JS only
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  function openLightbox(src, fallback) {
+    lightboxImg.src = src;
+    lightboxImg.onerror = () => lightboxImg.src = fallback;
+    lightbox.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+</script>
+</body>
+</html>

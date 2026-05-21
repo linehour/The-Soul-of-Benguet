@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Festivals | The Soul of Benguet</title>
+  <link rel="icon" type="image/x-icon" href="images/1berry-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:36px; }
+    .page-tab-btn {
+      padding:12px 32px; border-radius:50px; border:none; cursor:pointer;
+      font-family:var(--font-body); font-size:0.9rem; font-weight:600;
+      transition:var(--transition); background:var(--green-light); color:var(--green);
+    }
+    .page-tab-btn.active { background:var(--green); color:var(--cream); }
+    .page-section { display:none; }
+    .page-section.active { display:block; }
+  </style>
+</head>
+<body>
+
+<div id="page-loader"><div class="loader-inner"><div class="loader-ring"></div><span>BENGUET</span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="images/1benguet-logoo.png" alt="Benguet" style="max-height: 30px; margin-right: 10px;">
+      <span style="font-family:var(--font-serif);font-size:1.1rem;letter-spacing:2px;font-weight:700;color:var(--cream);">BENGUET</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="destinations.html">Destinations</a>
+      <a href="festivals.html" class="active">Festivals</a>
+      <a href="food.html">Food</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travel-tips.html">Travel Tips</a>
+      <a href="inquiry.html">Inquiry</a>
+    </div>
+    <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="destinations.html">Destinations</a>
+    <a href="festivals.html" class="active">Festivals</a>
+    <a href="food.html">Food</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="travel-tips.html">Travel Tips</a>
+    <a href="inquiry.html">Inquiry</a>
+  </div>
+</nav>
+
+<div class="hero-inner">
+  <span class="eyebrow">Explore Benguet Culture</span>
+  <h1>Festivals & Food</h1>
+  <p>Experience the vibrant traditions and delicious flavors of every municipality.</p>
+</div>
+
+<section class="section">
+  <div class="container">
+    <!-- Page toggle -->
+    <div class="page-tabs">
+      <button class="page-tab-btn active" onclick="switchPage('festivals',this)">🎉 Municipal Festivals</button>
+    </div>
+
+    <!-- FESTIVALS SECTION -->
+    <div class="page-section active" id="festivals">
+      <div class="chips-wrap" id="festChips"></div>
+      <div class="grid-2" id="festivalDisplay"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p class="footer-tagline">Explore the Soul of Benguet</p>
+  <p class="footer-copy">© 2026 | All Rights Reserved | To God be the Glory!</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+  // PAGE SWITCH
+  function switchPage(id, btn) {
+    document.querySelectorAll('.page-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+
+  // FESTIVAL DATA
+  const festivalData = [
+    { name:"Sadsad ni Atok", town:"Atok", date:"February", img:"images/Atok.jpg", text:"A vibrant celebration of the flower industry featuring indigenous dances." },
+    { name:"Atok Founding Day", town:"Atok", date:"March", img:"images/atok2.jpg", text:"Commemorating the rich history of Atok municipality." },
+    { name:"Saliw-iw Festival", town:"Bakun", date:"November", img:"images/Bakun1.jpg", text:"Celebrating bountiful harvests with traditional Bakun rituals." },
+    { name:"Bakun Fiesta", town:"Bakun", date:"March", img:"images/Bakun2.webp", text:"Clan gatherings, indigenous rituals and communal feasting." },
+    { name:"Ad-ivay ni Bokod", town:"Bokod", date:"November", img:"images/Ad.jpg", text:"Ibaloi cultural showcase celebrating unity and tradition." },
+    { name:"Bokod Foundation Day", town:"Bokod", date:"December", img:"images/Ad1.avif", text:"Traditional games, dances and community celebrations." },
+    { name:"Albikan Festival", town:"Buguias", date:"December", img:"images/Ad2.avif", text:"Cultural preservation and showcase of Buguias heritage." },
+    { name:"Buguias Fiesta", town:"Buguias", date:"April", img:"images/Bug.jpg", text:"Community spirit celebration in the heart of the vegetable belt." },
+    { name:"Seng-ew Festival", town:"Itogon", date:"May", img:"images/Seng.jpg", text:"Celebrating the scents and stories of Itogon's pine forests." },
+    { name:"Itogon Foundation Day", town:"Itogon", date:"November", img:"images/Itogon.jpg", text:"Honoring the proud mining heritage of Itogon." },
+    { name:"Bendiyan Festival", town:"Kabayan", date:"April", img:"images/kab.jpg", text:"The famous Bendiyan victory dance — a living indigenous tradition." },
+    { name:"Kabayan Fiesta", town:"Kabayan", date:"May", img:"images/kab2.jpg", text:"Ancestral rituals in the shadow of the sacred Mt. Pulag." },
+    { name:"Strawberry Festival", town:"La Trinidad", date:"March", img:"images/la.jpg", text:"The valley's most beloved harvest festival drawing thousands." },
+    { name:"Adivay Festival", town:"La Trinidad", date:"November", img:"images/la1.jpg", text:"The grand provincial gathering of culture and unity." },
+    ];
+  const municipalities = ['All','Atok','Bakun','Bokod','Buguias','Itogon','Kabayan','La Trinidad'];
+
+  function renderFestivals(muni) {
+    const filtered = muni === 'All' ? festivalData : festivalData.filter(f => f.town === muni);
+    const grid = document.getElementById('festivalDisplay');
+    grid.innerHTML = '';
+    filtered.forEach((f, i) => {
+      grid.innerHTML += `
+        <div class="festival-card" data-aos data-aos-delay="${(i%2)*100}">
+          <div class="card-img">
+            ${f.img ? `<img src="${f.img}" alt="${f.name}" onerror="this.parentNode.innerHTML='<div class=card-img-placeholder>${f.name}</div>'">` : `<div class="card-img-placeholder">${f.name}</div>`}
+          </div>
+          <div class="card-body">
+            <span class="date-badge">${f.date}</span>
+            <h5>${f.name}</h5>
+            <p class="town-badge">${f.town}</p>
+            <p>${f.text}</p>
+          </div>
+        </div>`;
+    });
+    document.querySelectorAll('[data-aos]').forEach(el => {
+      const delay = parseInt(el.dataset.aosDelay||0);
+      const obs = new IntersectionObserver(en => { en.forEach(e => { if(e.isIntersecting) { setTimeout(()=>e.target.classList.add('aos-animate'),delay); obs.unobserve(e.target); }}); },{threshold:0.08});
+      obs.observe(el);
+    });
+  }
+
+  // Build festival chips
+  const festChips = document.getElementById('festChips');
+  municipalities.forEach(m => {
+    const btn = document.createElement('button');
+    btn.className = 'btn-chip' + (m === 'All' ? ' active' : '');
+    btn.textContent = m;
+    btn.onclick = () => { document.querySelectorAll('#festChips .btn-chip').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderFestivals(m); };
+    festChips.appendChild(btn);
+  });
+  renderFestivals('All');
+
+
+</script>
+</body>
+</html>
